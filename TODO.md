@@ -1,8 +1,8 @@
 # TO DO
 
 ## ML
-- Get the dataset []
-- Filter out "2s" from the dataset (aka neutral ones)
+- Get the dataset [X]
+- Explore the dataset [X]
 - Train the model []
 - Test the model []
 
