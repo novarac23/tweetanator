@@ -3,7 +3,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 import re
 
-test_setntance = "I love this"
+test_setntance = "I HATE this weather"
 
 filename = 'ml_model_final.sav'
 file = open(filename, 'rb')
@@ -25,7 +25,8 @@ for i in range(0, 1):
     corpus.append(review)
 
 from sklearn.feature_extraction.text import CountVectorizer
-cv = CountVectorizer()
+vocabulary = joblib.load('vocabulary.pkl')
+cv = CountVectorizer(max_features=2000, vocabulary=vocabulary)
 X = cv.fit_transform(corpus).toarray()
 
 result = loaded_model.predict(X)
