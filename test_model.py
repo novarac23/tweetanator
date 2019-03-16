@@ -3,7 +3,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 import re
 
-test_setntance = "I HATE this weather"
+test_setntance = "I'm really happy"
 
 filename = 'ml_model_final.sav'
 file = open(filename, 'rb')
