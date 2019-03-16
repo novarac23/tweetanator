@@ -3,8 +3,9 @@
 ## ML
 - Get the dataset [X]
 - Explore the dataset [X]
-- Train the model []
-- Test the model []
+- Train the model [X]
+- Test the model [X]
+- Improve model to be about 80% right []
 
 ## Flask
 
