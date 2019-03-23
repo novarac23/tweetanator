@@ -2,3 +2,4 @@ tweets.csv
 smol_tweets.csv
 smol_tweets_v2.csv
 .ipynb_checkpoints/*
+.env
