@@ -41,7 +41,14 @@ def predict():
 
         result = loaded_model.predict(X)
 
-        return render_template('result.html',prediction = result[0])
+        if result[0] == 0:
+            result = "Negative"
+        elif result[0] == 4:
+            result = "Positive"
+        else:
+            result = "I don't know"
+
+        return render_template('result.html',prediction = result)
 
 if __name__ == '__main__':
     app.run(debug=True)
