@@ -3,7 +3,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 import re
 
-test_setntance = "I'm really happy"
+test_setntance = "This food is amazing"
 
 filename = 'ml_model_final.sav'
 file = open(filename, 'rb')
@@ -31,4 +31,10 @@ X = cv.fit_transform(corpus).toarray()
 
 result = loaded_model.predict(X)
 
-print(result)
+if result[0] == 0:
+    print("Negative")
+elif result[0] == 4:
+    print("Positive")
+else:
+    print("Not sure")
+
