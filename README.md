@@ -11,3 +11,5 @@ proper training it can figure out way more then that.
 
 Accuracy is not amazing but it's also not horrible, it's right around 70%. 
 It could definitely be tweaked to get closer to 90% but for now it's not that bad.
+
+As far as where I found my dataset for training this ML model here's the link: http://help.sentiment140.com/for-students
