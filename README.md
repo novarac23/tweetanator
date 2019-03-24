@@ -14,4 +14,4 @@ It could definitely be tweaked to get closer to 90% but for now it's not that ba
 
 As far as where I found my dataset for training this ML model here's the link: http://help.sentiment140.com/for-students
 
-if you want to try out hosted version of the app shoot me a message on twitter :)
+if you want to try out https://tweetanator.herokuapp.com shoot me a message on twitter [at]novica93 or feel free to pull down the project and run it locally :)
