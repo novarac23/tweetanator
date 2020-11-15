@@ -3,3 +3,9 @@ smol_tweets.csv
 smol_tweets_v2.csv
 .ipynb_checkpoints/*
 .env
+glove.6B.100d.txt
+train.csv
+test.csv
+training.csv
+__pycache__/*
+sentiment_model_lstm_v1/*

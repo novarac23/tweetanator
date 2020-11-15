@@ -16,4 +16,5 @@ As far as where I found my dataset for training this ML model here's the link: h
 
 Update 2020:
 
-I'm working on an updated version of this project and will probably host on AWS! 🙌
+I've replaced the old model with an LSTM, it works a lot better! I'll try and deploy this in the upcoming months. I have a few ideas on how to extend Tweetanator to do more things, for example it would be cool if it could scrape tweets from your feed and show you a distribution of tweets based on their sentiment. I'm looking forward to experimenting with those types of features in the future 🙌 
+
