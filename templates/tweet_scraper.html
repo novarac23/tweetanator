@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>Home</title>
+  	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body>
+  	<header>
+  		<div class="container">
+		<div id="brandname"><b>Tweetenator</b>🤖</div>
+  	  </div>
+  	</header>
+	<div>
+		<p>Query twitter for tweets to get sentiment distribution:</p>
+	</div>
+  	<div class="ml-container">
+  		<form action="{{url_for('scrape')}}" method="POST">
+  		    <textarea name="message" rows="4" cols="50"></textarea> <br />
+  		    <input type="submit" class="btn-info" value="predict">
+  	  </form>
+  	</div>
+  </body>

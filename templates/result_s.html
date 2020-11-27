@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>Tweetenator</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+          <div id="brandname">Tweetenator - Scraping Result</div>
+      </div>
+    </header>
+    <img src={{ distribution }}></img>
+    <div><a href="{{url_for('home')}}"> Home </a></div>
+  </body>
+</html>
