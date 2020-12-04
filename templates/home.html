@@ -7,12 +7,14 @@
   <body>
   	<header>
   		<div class="container">
-  		  <div id="brandname">Tweetenator</div>
+		<div id="brandname"><b>Tweetenator</b>🤖</div>
   	  </div>
   	</header>
+	<div>
+		<p>Manual Entry (copy & paste your tweet to figure out its sentiment):</p>
+	</div>
   	<div class="ml-container">
   		<form action="{{ url_for('predict')}}" method="POST">
-  		    <p>Enter your tweet below to figure out it's sentiment:</p>
   		    <textarea name="message" rows="4" cols="50"></textarea> <br />
   		    <input type="submit" class="btn-info" value="predict">
   	  </form>
