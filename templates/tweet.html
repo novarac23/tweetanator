@@ -7,17 +7,17 @@
   <body>
   	<header>
   		<div class="container">
-        <div id="brandname"><b>Tweetenator</b>🤖 | <a href="{{url_for('tweet')}}">Single Tweet Inference</a> | <a href="https://github.com/novarac23/tweetanator">Github</a></div>
+        <div id="brandname"><b>Tweetenator</b>🤖 | <a href="{{url_for('home')}}">Home</a> | <a href="https://github.com/novarac23/tweetanator">Github</a> | </div>
   	  </div>
   	</header>
     <div>
-      <p>Query twitter and get a sentiment analysis breakdown! (type the query term below)
+      <p>Copy & paste your tweet to figure out its sentiment:</p>
     </div>
     <div class="ml-container">
-      <form action="{{url_for('scrape')}}" method="POST">
-        <input name="message" style="border:2px solid black"></input> <br />
-        <input type="submit" class="btn-info" value="Query Twitter">
-      </form>
+        <form action="{{ url_for('predict')}}" method="POST">
+            <textarea name="message" rows="4" cols="50"></textarea> <br />
+            <input type="submit" class="btn-info" value="predict">
+        </form>
     </div>
     <div>
       <p>A few notes about this project:</p>
