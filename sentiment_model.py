@@ -9,7 +9,7 @@ class SentimentModel:
         self.model = model
 
         with open(tokenizer_path, 'rb') as handle:
-            self.tokenizer = pickle.load(handle) 
+            self.tokenizer = pickle.load(handle)
 
         self.max_length = 21
 
@@ -26,13 +26,13 @@ class SentimentModel:
             probability = prediction[indice]
             valid_prediction = probability > 0.8
 
-            result = "Not sure"
-    
+            result = "not sure"
+
             if valid_prediction:
                 if indice == 1:
-                    result = "Positive"
+                    result = "positive"
                 else:
-                    result = "Negative"
+                    result = "negative"
 
             sentiments.append(result)
 

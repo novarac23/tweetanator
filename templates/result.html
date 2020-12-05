@@ -7,10 +7,9 @@
   <body>
     <header>
       <div class="container">
-          <div id="brandname">Tweetenator</div>
+        <div id="brandname"><b>Tweetenator</b>🤖 | <a href="{{url_for('home')}}">Home</a> | <a href="{{url_for('tweet')}}">Single Tweet Inference</a> | <a href="https://github.com/novarac23/tweetanator">Github</a></div>
       </div>
     </header>
-  	<p style="color:blue;font-size:20;text-align: center;"><b>Your tweet is: {{ prediction }}</b></p>
-    <div><a href="{{url_for('home')}}"> Home </a></div>
+    <p>Tweet is <b>{{ prediction }}</b></p>
   </body>
 </html>
