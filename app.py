@@ -1,4 +1,5 @@
 #TODO
+# - confirm twitter auth is working as is
 # - figure out what the app.secret_key is about
 # - incorporate tweepy into new auth
 # - think about how are you going to deploy this cuz callback url is localhost
