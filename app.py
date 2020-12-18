@@ -64,6 +64,7 @@ def scrape():
         results = sm.predict_sentiments(tweets)
 
         labels, counts = np.unique(results, return_counts=True)
+        plt.close()
         plt.bar(labels, counts, width=.5, align='center')
         plt.gca().set_xticks(labels)
         img = io.BytesIO()
