@@ -1,12 +1,3 @@
-#TODO
-# - confirm twitter auth is working as is [X]
-# - figure out what the app.secret_key is about [X]
-# - incorporate tweepy into new auth [X]
-# - think about how are you going to deploy this cuz callback url is localhost [X]
-#   - just create a prod app with ana actual url
-# - get a twitter log in button functionality []
-# - deploy
-
 import io
 import os
 import base64
