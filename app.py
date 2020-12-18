@@ -26,8 +26,6 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 API_KEY_SECRET = os.getenv("API_KEY_SECRET")
 SECRET_KEY = os.getenv("SECRET_KEY")
-ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
-ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
 
 # getting the model
 model_r = keras.models.load_model('sentiment_model_lstm_v1/')
@@ -43,11 +41,6 @@ auth = tweepy.OAuthHandler(API_KEY, API_KEY_SECRET)
 
 @app.route('/')
 def home():
-    if not twitter.authorized:
-        return redirect(url_for('twitter.login'))
-
-    resp = twitter.get('account/settings.json')
-    print(resp.json()["screen_name"])
     return render_template('home.html')
 
 @app.route('/single-tweet')
@@ -65,8 +58,8 @@ def predict():
 @app.route('/scrape', methods=['POST', 'GET'])
 def scrape():
     if request.method == "POST":
-        auth.set_access_token(session.get('oauth_token'),
-                              session.get('oauth_token_secret'))
+        auth.set_access_token(session['twitter_oauth_token'].get('oauth_token'),
+                              session['twitter_oauth_token'].get('oauth_token_secret'))
         api = tweepy.API(auth)
 
         query = request.form['message']
@@ -78,7 +71,6 @@ def scrape():
 
         sm = SentimentModel(model_r)
         results = sm.predict_sentiments(tweets)
-
 
         labels, counts = np.unique(results, return_counts=True)
         plt.bar(labels, counts, width=.5, align='center')

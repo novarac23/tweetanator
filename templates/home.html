@@ -13,12 +13,20 @@
     <div>
       <p>Query twitter and get a sentiment analysis breakdown! (type the query term below)
     </div>
-    <div class="ml-container">
-      <form action="{{url_for('scrape')}}" method="POST">
-        <input name="message" style="border:2px solid black"></input> <br />
-        <input type="submit" class="btn-info" value="Query Twitter">
-      </form>
-    </div>
+    {% if not session.get('twitter_oauth_token') %}
+      <div class="ml-container">
+        <form action="{{url_for('twitter.login')}}">
+          <input type="submit" value="Log In To Twitter" />
+        </form>
+      </div>
+    {% else %}
+      <div class="ml-container">
+        <form action="{{url_for('scrape')}}" method="POST">
+          <input name="message" style="border:2px solid black"></input> <br />
+          <input type="submit" class="btn-info" value="Query Twitter">
+        </form>
+      </div>
+    {% endif %}
     <div>
       <p>A few notes about this project:</p>
       <ul>
