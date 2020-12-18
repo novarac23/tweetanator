@@ -1,8 +1,10 @@
 #TODO
-# - confirm twitter auth is working as is
-# - figure out what the app.secret_key is about
-# - incorporate tweepy into new auth
-# - think about how are you going to deploy this cuz callback url is localhost
+# - confirm twitter auth is working as is [X]
+# - figure out what the app.secret_key is about [X]
+# - incorporate tweepy into new auth [X]
+# - think about how are you going to deploy this cuz callback url is localhost [X]
+#   - just create a prod app with ana actual url
+# - get a twitter log in button functionality []
 # - deploy
 
 import io
@@ -16,25 +18,27 @@ import matplotlib.pyplot as plt
 from tensorflow import keras
 from dotenv import load_dotenv
 from sentiment_model import SentimentModel
-from flask import Flask, request, Response, render_template, redirect, url_for
+from flask import Flask, request, Response, render_template, redirect, url_for, session
 from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 
+# getting env variables
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
 API_KEY_SECRET = os.getenv("API_KEY_SECRET")
+SECRET_KEY = os.getenv("SECRET_KEY")
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
 
-app = Flask(__name__)
-app.secret_key = "supersekrit"
+# getting the model
 model_r = keras.models.load_model('sentiment_model_lstm_v1/')
+
+# setting up the app
+app = Flask(__name__)
+app.secret_key = SECRET_KEY 
 blueprint = make_twitter_blueprint(api_key=API_KEY,
                                    api_secret=API_KEY_SECRET)
 app.register_blueprint(blueprint, url_prefix="/login")
 auth = tweepy.OAuthHandler(API_KEY, API_KEY_SECRET)
-
-auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-api = tweepy.API(auth)
 
 
 @app.route('/')
@@ -43,7 +47,6 @@ def home():
         return redirect(url_for('twitter.login'))
 
     resp = twitter.get('account/settings.json')
-    assert resp.ok
     print(resp.json()["screen_name"])
     return render_template('home.html')
 
@@ -62,6 +65,10 @@ def predict():
 @app.route('/scrape', methods=['POST', 'GET'])
 def scrape():
     if request.method == "POST":
+        auth.set_access_token(session.get('oauth_token'),
+                              session.get('oauth_token_secret'))
+        api = tweepy.API(auth)
+
         query = request.form['message']
 
         tweets = tweepy.Cursor(api.search,
