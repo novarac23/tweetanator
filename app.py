@@ -9,22 +9,26 @@ import matplotlib.pyplot as plt
 from tensorflow import keras
 from dotenv import load_dotenv
 from sentiment_model import SentimentModel
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, render_template, redirect, url_for, session
+from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 
+# getting env variables
 load_dotenv()
-
 API_KEY = os.getenv("API_KEY")
 API_KEY_SECRET = os.getenv("API_KEY_SECRET")
-ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
-ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-
-auth = tweepy.OAuthHandler(API_KEY, API_KEY_SECRET)
-auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-api = tweepy.API(auth)
-
-app = Flask(__name__)
+# getting the model
 model_r = keras.models.load_model('sentiment_model_lstm_v1/')
+
+# setting up the app
+app = Flask(__name__)
+app.secret_key = SECRET_KEY 
+blueprint = make_twitter_blueprint(api_key=API_KEY,
+                                   api_secret=API_KEY_SECRET)
+app.register_blueprint(blueprint, url_prefix="/login")
+auth = tweepy.OAuthHandler(API_KEY, API_KEY_SECRET)
+
 
 @app.route('/')
 def home():
@@ -45,6 +49,10 @@ def predict():
 @app.route('/scrape', methods=['POST', 'GET'])
 def scrape():
     if request.method == "POST":
+        auth.set_access_token(session['twitter_oauth_token'].get('oauth_token'),
+                              session['twitter_oauth_token'].get('oauth_token_secret'))
+        api = tweepy.API(auth)
+
         query = request.form['message']
 
         tweets = tweepy.Cursor(api.search,
@@ -54,7 +62,6 @@ def scrape():
 
         sm = SentimentModel(model_r)
         results = sm.predict_sentiments(tweets)
-
 
         labels, counts = np.unique(results, return_counts=True)
         plt.bar(labels, counts, width=.5, align='center')

@@ -10,25 +10,35 @@
         <div id="brandname"><b>Tweetenator</b>🤖 | <a href="{{url_for('tweet')}}">Single Tweet Inference</a> | <a href="https://github.com/novarac23/tweetanator">Github</a></div>
   	  </div>
   	</header>
-    <div>
-      <p>Query twitter and get a sentiment analysis breakdown! (type the query term below)
-    </div>
-    <div class="ml-container">
-      <form action="{{url_for('scrape')}}" method="POST">
-        <input name="message" style="border:2px solid black"></input> <br />
-        <input type="submit" class="btn-info" value="Query Twitter">
-      </form>
-    </div>
+    {% if not session.get('twitter_oauth_token') %}
+      <div>
+        <p>Please log in to twitter so you can query it and get a sentiment
+          analysis breakdown!</p>
+      </div>
+      <div class="ml-container">
+        <form action="{{url_for('twitter.login')}}">
+          <input type="submit" value="Log In To Twitter" />
+        </form>
+      </div>
+    {% else %}
+      <div>
+        <p>Hi {{session['twitter_oauth_token'].get('screen_name')}} 👋</p>
+        <p>Query twitter and get a sentiment analysis breakdown!</p>
+      </div>
+      <div class="ml-container">
+        <form action="{{url_for('scrape')}}" method="POST">
+          <input name="message" style="border:2px solid black"></input> <br />
+          <input type="submit" class="btn-info" value="Query Twitter">
+        </form>
+      </div>
+    {% endif %}
     <div>
       <p>A few notes about this project:</p>
       <ul>
         <li>Model that's determining the sentiment is an LSTM network</li>
         <li>Dataset that the model was trained on can be found here:
           http://help.sentiment140.com/for-students</li>
-        <li>When we query twitter, query is scoped to my twitter account/creds.
-          In the future I might build an actual oauth page and allow everyone to
-          connect their twitter account.</li>
-        <li>It takes a bit of time to query twitter, parse all of that through a
+        <li>It takes a bit of time to query twitter (~15-30 seconds), parse all of that through a
           model and a generate a graph</li>
         <li>Twitter's API has rate limits so if it errors out it's likely because of that</li>
       </ul>
